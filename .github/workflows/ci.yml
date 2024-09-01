@@ -39,7 +39,7 @@ jobs:
       - name: Bundler and gem install
         run: |
           gem install bundler
-          bundle install --jobs 4 --retry 3 path vendor/bundle
+          bundle install --jobs 4 --retry 3 path
 
       - name: Database create and migrate
         run: |
@@ -68,12 +68,12 @@ jobs:
       - name: Bundler and gem install
         run: |
           gem install bundler
-          bundle install --jobs 4 --retry 3 path vendor/bundle
+          bundle install --jobs 4 --retry 3 path
       
       - name: Run rubocop
         run: bundle exec rubocop
 
-  exlint:
+  eslint:
     runs-on: ubuntu-latest
     defaults:
       run:
