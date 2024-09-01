@@ -25,7 +25,7 @@ services:
       stdin_open: true
     next:
       build:
-        dockerfile: ./next/Dockerfile
+        context: ./next
       tty: true
       stdin_open: true
       volumes:
