@@ -1,7 +1,13 @@
 import createEmotionServer from '@emotion/server/create-instance'
 import { RenderPageResult } from 'next/dist/shared/lib/utils'
 
-import Document, { Html, Head, Main, NextScript, DocumentInitialProps } from 'next/document'
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentInitialProps,
+} from 'next/document'
 
 import * as React from 'react'
 
@@ -61,8 +67,7 @@ MyDocument.getInitialProps = async (ctx): Promise<DocumentInitialProps> => {
     originalRenderPage({
       enhanceApp:
         (App: any) =>
-        (props): JSX.Element =>
-          <App EmotionCache={cache} {...props} />
+        (props): JSX.Element => <App EmotionCache={cache} {...props} />,
     })
 
   const initialProps = await Document.getInitialProps(ctx)
