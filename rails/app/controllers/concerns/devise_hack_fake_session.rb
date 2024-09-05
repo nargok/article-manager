@@ -1,5 +1,5 @@
 module DeviseHackFakeSession
-  extend ActiveeSupport::Concern
+  extend ActiveSupport::Concern
 
   class FakeSession < Hash
     def enabled?
