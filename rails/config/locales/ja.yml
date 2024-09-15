@@ -7,6 +7,6 @@ ja:
   enums:
     article:
       status:
-        undaved: 未保存
+        unsaved: 未保存
         draft: 下書き
         published: 公開中
