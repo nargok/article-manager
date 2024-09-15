@@ -3,6 +3,10 @@ class ArticleSerializer
 
   attributes :id, :title, :content
 
+  attribute :status do |resource|
+    resource.status_i18n
+  end
+
   attribute :created_at do |resource|
     resource.created_at.strftime("%Y/%m/%d")
   end
