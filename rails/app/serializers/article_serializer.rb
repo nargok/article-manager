@@ -1,6 +1,7 @@
 class ArticleSerializer
   include Alba::Resource
 
+  collection_key :article_list
   attributes :id, :title, :content
 
   attribute :created_at do |resource|
