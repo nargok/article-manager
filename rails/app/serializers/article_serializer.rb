@@ -1,7 +1,6 @@
 class ArticleSerializer
   include Alba::Resource
 
-  collection_key :article_list
   attributes :id, :title, :content
 
   attribute :created_at do |resource|
@@ -42,5 +41,13 @@ class ArticleSerializer
 
   attribute :user do |resource|
     UserSerializer.new(resource.user).as_json
+  end
+
+  def self.meta(resource)
+    {
+      current_page: resource.current_page,
+      total_pages: resource.total_pages,
+      total_count: resource.total_count
+    }
   end
 end
