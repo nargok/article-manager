@@ -4,6 +4,7 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import useSWR from 'swr'
 import ArticleCard from '@/components/ArticleCard'
+import { styles } from '@/styles'
 import { fetcher } from '@/utils'
 
 type ArticleProps = {
@@ -26,7 +27,7 @@ const Index: NextPage = () => {
   const articles = camelcaseKeys(data.articles)
 
   return (
-    <Box sx={{ backgroundColor: '#e6f2ff', minHeight: '100vh' }}>
+    <Box css={styles.pageMInHeight} sx={{ backgroundColor: '#e6f2ff' }}>
       <Container maxWidth="md" sx={{ pt: 6 }}>
         <Grid container spacing={4}>
           {articles.map((article: ArticleProps, i: number) => (
