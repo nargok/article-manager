@@ -11,6 +11,10 @@ class ArticleSerializer
     resource.created_at.strftime("%Y/%m/%d")
   end
 
+  attribute :updated_at do |resource|
+    resource.updated_at.strftime("%Y/%m/%d")
+  end
+
   attribute :from_today do |resource|
     now = Time.zone.now
     created_at = resource.created_at
