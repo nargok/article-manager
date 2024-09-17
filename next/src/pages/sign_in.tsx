@@ -23,6 +23,20 @@ const SignIn: NextPage = () => {
     defaultValues: { email: '', password: '' },
   })
 
+  const validatoinRules = {
+    email: {
+      required: 'メールアドレスを入力してください。',
+      pattern: {
+        value:
+          /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+        message: '正しい形式のメールアドレスを入力してください。',
+      },
+    },
+    password: {
+      required: 'パスワードを入力してください。',
+    },
+  }
+
   const onSubmit: SubmitHandler<SignInFormData> = (data) => {
     const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/auth/sign_in'
     const headers = { 'Content-Type': 'application/json' }
@@ -59,11 +73,14 @@ const SignIn: NextPage = () => {
           <Controller
             name="email"
             control={control}
-            render={({ field }) => (
+            rules={validatoinRules.email}
+            render={({ field, fieldState }) => (
               <TextField
                 {...field}
                 type="text"
                 label="メールアドレス"
+                error={fieldState.invalid}
+                helperText={fieldState.error?.message}
                 sx={{ backgroundColor: 'white' }}
               />
             )}
@@ -71,11 +88,14 @@ const SignIn: NextPage = () => {
           <Controller
             name="password"
             control={control}
-            render={({ field }) => (
+            rules={validatoinRules.password}
+            render={({ field, fieldState }) => (
               <TextField
                 {...field}
                 type="password"
                 label="パスワード"
+                error={fieldState.invalid}
+                helperText={fieldState.error?.message}
                 sx={{ backgroundColor: 'white' }}
               />
             )}
