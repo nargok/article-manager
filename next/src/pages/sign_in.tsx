@@ -1,3 +1,4 @@
+import { LoadingButton } from '@mui/lab'
 import {
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
 import axios, { AxiosResponse, AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
 type SignInFormData = {
@@ -18,6 +20,7 @@ type SignInFormData = {
 
 const SignIn: NextPage = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const { handleSubmit, control } = useForm<SignInFormData>({
     defaultValues: { email: '', password: '' },
@@ -38,6 +41,7 @@ const SignIn: NextPage = () => {
   }
 
   const onSubmit: SubmitHandler<SignInFormData> = (data) => {
+    setIsLoading(true)
     const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/auth/sign_in'
     const headers = { 'Content-Type': 'application/json' }
 
@@ -50,6 +54,8 @@ const SignIn: NextPage = () => {
       })
       .catch((e: AxiosError<{ error: string }>) => {
         console.log(e.message)
+        // TODO 画面にエラーメッセージを表示する
+        setIsLoading(false)
       })
   }
 
@@ -100,13 +106,14 @@ const SignIn: NextPage = () => {
               />
             )}
           />
-          <Button
+          <LoadingButton
             variant="contained"
             type="submit"
+            loading={isLoading}
             sx={{ fontWeight: 'bold', color: 'white' }}
           >
             送信する
-          </Button>
+          </LoadingButton>
         </Stack>
       </Container>
     </Box>
