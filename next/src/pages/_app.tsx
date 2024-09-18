@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import * as React from 'react'
+import CurrentUerFetch from '@/components/CurrentUserFetch'
 import Header from '@/components/Header'
 
 import createEmotionCache from '@/styles/createEmotionCache'
@@ -22,6 +23,7 @@ export default function MyApp(props: MyAppProps): JSX.Element {
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <CurrentUerFetch />
         <Header />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <Component {...pageProps} />
