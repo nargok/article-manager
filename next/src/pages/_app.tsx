@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app'
 import * as React from 'react'
 import CurrentUerFetch from '@/components/CurrentUserFetch'
 import Header from '@/components/Header'
+import Snackbar from '@/components/Snackbar'
 
 import createEmotionCache from '@/styles/createEmotionCache'
 import theme from '@/styles/theme'
@@ -27,6 +28,7 @@ export default function MyApp(props: MyAppProps): JSX.Element {
         <Header />
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <Component {...pageProps} />
+        <Snackbar />
       </ThemeProvider>
     </CacheProvider>
   )
