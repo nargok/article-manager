@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   Typography,
 } from '@mui/material'
+import axios, { AxiosResponse, AxiosError } from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -26,12 +27,34 @@ const Header = () => {
   const [anchorEL, setAnchorEL] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEL)
 
+  const hideHeaderPathnames = ['/current/articles/edit/[id]']
+  if (hideHeaderPathnames.includes(router.pathname)) return <></>
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEL(event.currentTarget)
   }
 
   const handleClose = () => {
     setAnchorEL(null)
+  }
+
+  const addNewArticle = () => {
+    const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/current/articles'
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'access-token': localStorage.getItem('access-token'),
+      client: localStorage.getItem('client'),
+      uid: localStorage.getItem('uid'),
+    }
+
+    axios({ method: 'POST', url: url, headers: headers })
+      .then((res: AxiosResponse) => {
+        router.push('/current/articles/edit/' + res.data.id)
+      })
+      .catch((e: AxiosError<{ error: string }>) => {
+        console.log(e.message)
+      })
   }
 
   return (
@@ -111,6 +134,7 @@ const Header = () => {
                         width: 100,
                         boxShadow: 'none',
                       }}
+                      onClick={addNewArticle}
                     >
                       Add new
                     </Button>
