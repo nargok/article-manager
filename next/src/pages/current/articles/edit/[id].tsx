@@ -78,7 +78,7 @@ const MyArticleEdit: NextPage = () => {
   }, [data])
 
   const { handleSubmit, control, reset, watch } = useForm<ArticleFormData>({
-    defaultValues: article
+    defaultValues: article,
   })
 
   useEffect(() => {
@@ -109,7 +109,8 @@ const MyArticleEdit: NextPage = () => {
 
     setIsLoading(true)
 
-    const patchUrl = process.env.NEXT_PUBLIC_API_BASE_URL + '/current/articles/' + id
+    const patchUrl =
+      process.env.NEXT_PUBLIC_API_BASE_URL + '/current/articles/' + id
 
     const headers = {
       'Contet-Type': 'application/json',
@@ -161,134 +162,134 @@ const MyArticleEdit: NextPage = () => {
           backgroundColor: '#EDF2F7',
         }}
       >
-          <Toolbar
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ width: 50 }}>
+            <Link href="/current/articles">
+              <IconButton>
+                <ArrowBackSharpIcon />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center',
+              alignContent: 'center',
+              gap: { xs: '0 16px', sm: '0 24px' },
             }}
           >
-            <Box sx={{ width: 50 }}>
-              <Link href="/current/articles">
-                <IconButton>
-                  <ArrowBackSharpIcon />
-                </IconButton>
-              </Link>
+            <Box sx={{ textAlign: 'center' }}>
+              <Switch
+                checked={previewChecked}
+                onChange={handleChangePreviewChecked}
+              />
+              <Typography sx={{ fontSize: { xs: 12, sm: 15 } }}>
+                プレビュー表示
+              </Typography>
             </Box>
-            <Box
+            <Box sx={{ textAlign: 'center' }}>
+              <Switch
+                checked={statusChecked}
+                onChange={handleChangeStatusChecked}
+              />
+              <Typography sx={{ fontSize: { xs: 12, sm: 15 } }}>
+                下書き/公開
+              </Typography>
+            </Box>
+            <LoadingButton
+              variant="contained"
+              type="submit"
+              loading={isLoading}
               sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignContent: 'center',
-                gap: { xs: '0 16px', sm: '0 24px' }
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: { xs: 12, sm: 16 },
               }}
             >
-              <Box sx={{ textAlign: 'center' }}>
-                <Switch
-                  checked={previewChecked}
-                  onChange={handleChangePreviewChecked}
-                />
-                <Typography sx={{ fontSize: { xs: 12, sm: 15 } }}>
-                  プレビュー表示
-                </Typography>
-              </Box>
-              <Box sx={{ textAlign: 'center' }}>
-                <Switch
-                  checked={statusChecked}
-                  onChange={handleChangeStatusChecked}
-                />
-                <Typography sx={{ fontSize: { xs: 12, sm: 15 } }}>
-                  下書き/公開
-                </Typography>
-              </Box>
-              <LoadingButton
-                variant="contained"
-                type="submit"
-                loading={isLoading}
+              更新する
+            </LoadingButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Container
+        maxWidth="lg"
+        sx={{ pt: 11, pb: 3, display: 'flex', justifyContent: 'center' }}
+      >
+        {/* Edit mode */}
+        {!previewChecked && (
+          <Box sx={{ width: 840 }}>
+            <Box sx={{ mb: 2 }}>
+              <Controller
+                name="title"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    type="textarea"
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                    fullWidth
+                    placeholder="Writeit in Title"
+                    rows={25}
+                    sx={{ backgroundColor: 'white' }}
+                  />
+                )}
+              />
+            </Box>
+            <Box>
+              <Controller
+                name="content"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    type="textarea"
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
+                    multiline
+                    fullWidth
+                    placeholder="Writeit Markdown Text"
+                    rows={25}
+                    sx={{ backgroundColor: 'white' }}
+                  />
+                )}
+              />
+            </Box>
+          </Box>
+        )}
+        {/* Preview Mode  */}
+        {previewChecked && (
+          <Box sx={{ width: 840 }}>
+            <Typography
+              component="h2"
+              sx={{
+                fontSize: { xs: 21, sm: 25 },
+                fontWeight: 'bold',
+                textAlign: 'center',
+                pt: 2,
+                pb: 4,
+              }}
+            >
+              {watch('title')}
+            </Typography>
+            <Card sx={{ boxShadow: 'none', borderRadius: '12px' }}>
+              <Box
                 sx={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: { xs: 12, sm: 16 },
+                  padding: { xs: '0 24px 24px 24px', sm: '0 40px 40px 40px' },
+                  marginTop: { xs: '24px', sm: '40px' },
                 }}
               >
-                更新する
-              </LoadingButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Container
-          maxWidth="lg"
-          sx={{ pt: 11, pb: 3, display: 'flex', justifyContent: 'center' }}
-        >
-          {/* Edit mode */}
-          {!previewChecked && (
-            <Box sx={{ width: 840}}>
-              <Box sx={{ mb: 2 }}>
-                <Controller
-                  name="title"
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <TextField
-                      {...field}
-                      type="textarea"
-                      error={fieldState.invalid}
-                      helperText={fieldState.error?.message}
-                      fullWidth
-                      placeholder="Writeit in Title"
-                      rows={25}
-                      sx={{ backgroundColor: 'white' }}
-                    />
-                  )}
-                />
+                <MarkdownText content={watch('content')} />
               </Box>
-              <Box>
-                <Controller
-                  name="content"
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <TextField
-                      {...field}
-                      type="textarea"
-                      error={fieldState.invalid}
-                      helperText={fieldState.error?.message}
-                      multiline
-                      fullWidth
-                      placeholder='Writeit Markdown Text'
-                      rows={25}
-                      sx={{ backgroundColor: 'white'}}
-                    />
-                  )}
-                />
-              </Box>
-            </Box>
-          )}
-          {/* Preview Mode  */}
-          {previewChecked && (
-            <Box sx={{ width: 840 }}>
-              <Typography
-                component="h2"
-                sx={{
-                  fontSize: { xs: 21, sm: 25 },
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  pt: 2,
-                  pb: 4,
-                }}
-              >
-                {watch('title')}
-              </Typography>
-              <Card sx={{ boxShadow: 'none', borderRadius: '12px' }}>
-                <Box
-                  sx={{
-                    padding: { xs: '0 24px 24px 24px', sm: '0 40px 40px 40px' },
-                    marginTop: { xs: '24px', sm: '40px' },
-                  }}
-                >
-                  <MarkdownText content={watch('content')} />
-                </Box>
-              </Card>
-            </Box>
-          )}
+            </Card>
+          </Box>
+        )}
       </Container>
     </Box>
   )

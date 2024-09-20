@@ -67,34 +67,34 @@ const MyArticleDetail: NextPage = () => {
           color: '#6e7b85',
         }}
       >
-          <Container
-            maxWidth="sm"
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
-            <Box sx={{ display: 'flex', gap: '0 8px'}}>
-              <SettingsIcon />
-              <Typography
-                component="p"
-                sx={{ mr: 1, fontSize: { xs: 14, sm: 16 } }}
-              >
-                ステータス: {article.status}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', gap: '0 8px'}}>
-              <SettingsIcon />
-              <Typography
-                component="p"
-                sx={{ mr: 1, fontSize: { xs: 14, sm: 16 } }}
-              >
-                公開: {article.createdAt}
-              </Typography>
-            </Box>
-          </Container>
+        <Container
+          maxWidth="sm"
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          <Box sx={{ display: 'flex', gap: '0 8px' }}>
+            <SettingsIcon />
+            <Typography
+              component="p"
+              sx={{ mr: 1, fontSize: { xs: 14, sm: 16 } }}
+            >
+              ステータス: {article.status}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', gap: '0 8px' }}>
+            <SettingsIcon />
+            <Typography
+              component="p"
+              sx={{ mr: 1, fontSize: { xs: 14, sm: 16 } }}
+            >
+              公開: {article.createdAt}
+            </Typography>
+          </Box>
+        </Container>
       </Box>
       <Container maxWidth="lg">
         <Box sx={{ pt: 6, pb: 3 }}>
@@ -103,7 +103,7 @@ const MyArticleDetail: NextPage = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0 8px',
-              m: 'auto'
+              m: 'auto',
             }}
           >
             <Box sx={{ width: 40, height: 40 }}>
@@ -111,7 +111,7 @@ const MyArticleDetail: NextPage = () => {
                 <Avatar>
                   <Tooltip title="記事の管理に戻る">
                     <IconButton sx={{ backgroundColor: '#DDDDDD' }}>
-                      <ChevronLeftIcon sx={{ color: '#99AAB6' }}/>
+                      <ChevronLeftIcon sx={{ color: '#99AAB6' }} />
                     </IconButton>
                   </Tooltip>
                 </Avatar>

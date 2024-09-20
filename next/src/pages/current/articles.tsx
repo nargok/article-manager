@@ -12,6 +12,7 @@ import {
 import camelcaseKeys from 'camelcase-keys'
 import { defaults } from 'marked'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import useSWR from 'swr'
 import Error from '@/components/Error'
 import Loading from '@/components/Loading'
@@ -19,7 +20,6 @@ import { useUserState } from '@/hooks/useGlobalState'
 import { useRequireSignedIn } from '@/hooks/useRequireSignedIn'
 import { styles } from '@/styles'
 import { fetcher } from '@/utils'
-import Link from 'next/link'
 
 type ArticleProps = {
   id: number
