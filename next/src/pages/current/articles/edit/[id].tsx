@@ -6,7 +6,6 @@ import {
   Card,
   Container,
   IconButton,
-  IconCutton,
   Switch,
   TextField,
   Toolbar,
@@ -55,7 +54,6 @@ const MyArticleEdit: NextPage = () => {
     setStatusChecked(!statusChecked)
   }
 
-  // TODO Fix
   const url = process.env.NEXT_PUBLIC_API_BASE_URL + '/current/articles/'
   const { id } = router.query
   const { data, error } = useSWR(
@@ -73,7 +71,8 @@ const MyArticleEdit: NextPage = () => {
     }
     return {
       title: data.title,
-      content: data.content,
+      // unsaved状態のコンテンツをプレビューするとエラーする事象の回避のため
+      content: data.content ?? '',
       status: data.status,
     }
   }, [data])
@@ -100,7 +99,7 @@ const MyArticleEdit: NextPage = () => {
       })
     }
 
-    if (statusChecked && data.content === '') {
+    if (statusChecked && !data.content) {
       return setSnackbar({
         message: '本文なしの記事は公開できません',
         severity: 'error',
